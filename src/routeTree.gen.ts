@@ -10,33 +10,151 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BoasVindasRouteImport } from './routes/boas-vindas'
+import { Route as CarrinhoRouteImport } from './routes/carrinho'
+import { Route as HistoricoRouteImport } from './routes/historico'
+import { Route as MercadosRouteImport } from './routes/mercados'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as ResultadoRouteImport } from './routes/resultado'
+import { Route as CarrinhoNotaRouteImport } from './routes/carrinho.nota'
+import { Route as HistoricoIdRouteImport } from './routes/historico.$id'
+import { Route as ResultadoMercadoRouteImport } from './routes/resultado.$mercado'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BoasVindasRoute = BoasVindasRouteImport.update({
+  id: '/boas-vindas',
+  path: '/boas-vindas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarrinhoRoute = CarrinhoRouteImport.update({
+  id: '/carrinho',
+  path: '/carrinho',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoricoRoute = HistoricoRouteImport.update({
+  id: '/historico',
+  path: '/historico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MercadosRoute = MercadosRouteImport.update({
+  id: '/mercados',
+  path: '/mercados',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResultadoRoute = ResultadoRouteImport.update({
+  id: '/resultado',
+  path: '/resultado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CarrinhoNotaRoute = CarrinhoNotaRouteImport.update({
+  id: '/nota',
+  path: '/nota',
+  getParentRoute: () => CarrinhoRoute,
+} as any)
+const HistoricoIdRoute = HistoricoIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => HistoricoRoute,
+} as any)
+const ResultadoMercadoRoute = ResultadoMercadoRouteImport.update({
+  id: '/$mercado',
+  path: '/$mercado',
+  getParentRoute: () => ResultadoRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/boas-vindas': typeof BoasVindasRoute
+  '/carrinho': typeof CarrinhoRouteWithChildren
+  '/historico': typeof HistoricoRouteWithChildren
+  '/mercados': typeof MercadosRoute
+  '/perfil': typeof PerfilRoute
+  '/resultado': typeof ResultadoRouteWithChildren
+  '/carrinho/nota': typeof CarrinhoNotaRoute
+  '/historico/$id': typeof HistoricoIdRoute
+  '/resultado/$mercado': typeof ResultadoMercadoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/boas-vindas': typeof BoasVindasRoute
+  '/carrinho': typeof CarrinhoRouteWithChildren
+  '/historico': typeof HistoricoRouteWithChildren
+  '/mercados': typeof MercadosRoute
+  '/perfil': typeof PerfilRoute
+  '/resultado': typeof ResultadoRouteWithChildren
+  '/carrinho/nota': typeof CarrinhoNotaRoute
+  '/historico/$id': typeof HistoricoIdRoute
+  '/resultado/$mercado': typeof ResultadoMercadoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/boas-vindas': typeof BoasVindasRoute
+  '/carrinho': typeof CarrinhoRouteWithChildren
+  '/historico': typeof HistoricoRouteWithChildren
+  '/mercados': typeof MercadosRoute
+  '/perfil': typeof PerfilRoute
+  '/resultado': typeof ResultadoRouteWithChildren
+  '/carrinho/nota': typeof CarrinhoNotaRoute
+  '/historico/$id': typeof HistoricoIdRoute
+  '/resultado/$mercado': typeof ResultadoMercadoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/boas-vindas'
+    | '/carrinho'
+    | '/historico'
+    | '/mercados'
+    | '/perfil'
+    | '/resultado'
+    | '/carrinho/nota'
+    | '/historico/$id'
+    | '/resultado/$mercado'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/boas-vindas'
+    | '/carrinho'
+    | '/historico'
+    | '/mercados'
+    | '/perfil'
+    | '/resultado'
+    | '/carrinho/nota'
+    | '/historico/$id'
+    | '/resultado/$mercado'
+  id:
+    | '__root__'
+    | '/'
+    | '/boas-vindas'
+    | '/carrinho'
+    | '/historico'
+    | '/mercados'
+    | '/perfil'
+    | '/resultado'
+    | '/carrinho/nota'
+    | '/historico/$id'
+    | '/resultado/$mercado'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BoasVindasRoute: typeof BoasVindasRoute
+  CarrinhoRoute: typeof CarrinhoRouteWithChildren
+  HistoricoRoute: typeof HistoricoRouteWithChildren
+  MercadosRoute: typeof MercadosRoute
+  PerfilRoute: typeof PerfilRoute
+  ResultadoRoute: typeof ResultadoRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +166,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/boas-vindas': {
+      id: '/boas-vindas'
+      path: '/boas-vindas'
+      fullPath: '/boas-vindas'
+      preLoaderRoute: typeof BoasVindasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carrinho': {
+      id: '/carrinho'
+      path: '/carrinho'
+      fullPath: '/carrinho'
+      preLoaderRoute: typeof CarrinhoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/historico': {
+      id: '/historico'
+      path: '/historico'
+      fullPath: '/historico'
+      preLoaderRoute: typeof HistoricoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mercados': {
+      id: '/mercados'
+      path: '/mercados'
+      fullPath: '/mercados'
+      preLoaderRoute: typeof MercadosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resultado': {
+      id: '/resultado'
+      path: '/resultado'
+      fullPath: '/resultado'
+      preLoaderRoute: typeof ResultadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/carrinho/nota': {
+      id: '/carrinho/nota'
+      path: '/nota'
+      fullPath: '/carrinho/nota'
+      preLoaderRoute: typeof CarrinhoNotaRouteImport
+      parentRoute: typeof CarrinhoRoute
+    }
+    '/historico/$id': {
+      id: '/historico/$id'
+      path: '/$id'
+      fullPath: '/historico/$id'
+      preLoaderRoute: typeof HistoricoIdRouteImport
+      parentRoute: typeof HistoricoRoute
+    }
+    '/resultado/$mercado': {
+      id: '/resultado/$mercado'
+      path: '/$mercado'
+      fullPath: '/resultado/$mercado'
+      preLoaderRoute: typeof ResultadoMercadoRouteImport
+      parentRoute: typeof ResultadoRoute
+    }
   }
 }
 
+interface CarrinhoRouteChildren {
+  CarrinhoNotaRoute: typeof CarrinhoNotaRoute
+}
+
+const CarrinhoRouteChildren: CarrinhoRouteChildren = {
+  CarrinhoNotaRoute: CarrinhoNotaRoute,
+}
+
+const CarrinhoRouteWithChildren = CarrinhoRoute._addFileChildren(
+  CarrinhoRouteChildren,
+)
+
+interface HistoricoRouteChildren {
+  HistoricoIdRoute: typeof HistoricoIdRoute
+}
+
+const HistoricoRouteChildren: HistoricoRouteChildren = {
+  HistoricoIdRoute: HistoricoIdRoute,
+}
+
+const HistoricoRouteWithChildren = HistoricoRoute._addFileChildren(
+  HistoricoRouteChildren,
+)
+
+interface ResultadoRouteChildren {
+  ResultadoMercadoRoute: typeof ResultadoMercadoRoute
+}
+
+const ResultadoRouteChildren: ResultadoRouteChildren = {
+  ResultadoMercadoRoute: ResultadoMercadoRoute,
+}
+
+const ResultadoRouteWithChildren = ResultadoRoute._addFileChildren(
+  ResultadoRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BoasVindasRoute: BoasVindasRoute,
+  CarrinhoRoute: CarrinhoRouteWithChildren,
+  HistoricoRoute: HistoricoRouteWithChildren,
+  MercadosRoute: MercadosRoute,
+  PerfilRoute: PerfilRoute,
+  ResultadoRoute: ResultadoRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
