@@ -25,7 +25,7 @@ export interface Recommendation {
 function combos<T>(arr: T[], k: number): T[][] {
   if (k === 0) return [[]];
   if (arr.length < k) return [];
-  const [head, ...rest] = arr;
+  const [head, ...rest] = arr as [T, ...T[]];
   return [...combos(rest, k - 1).map((c) => [head, ...c]), ...combos(rest, k)];
 }
 
@@ -50,7 +50,7 @@ export function recommend(cart: CartItem[], limit: MarketLimit): Recommendation 
       const byMarket = new Map<MarketId, MarketPlan>();
       let total = 0;
       for (const it of items) {
-        let bestId = combo[0];
+        let bestId: MarketId = combo[0]!;
         for (const id of combo) {
           const a = it.product.prices[id];
           const b = it.product.prices[bestId];
@@ -78,7 +78,7 @@ export function recommend(cart: CartItem[], limit: MarketLimit): Recommendation 
   }
 
   let worstTotal = 0;
-  let worstMarketId: MarketId = ids[0];
+  let worstMarketId: MarketId = ids[0]!;
   for (const id of ids) {
     const t = Math.round(items.reduce((s, it) => s + it.product.prices[id] * it.qty, 0) * 100) / 100;
     if (t > worstTotal) {

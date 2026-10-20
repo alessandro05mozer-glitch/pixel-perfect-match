@@ -61,7 +61,7 @@ function PlanCard({
 }: {
   plan: Recommendation["plans"][number];
   defaultOpen: boolean;
-  detailBase?: "resultado";
+  detailBase?: "resultado" | undefined;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const m = marketById(plan.marketId)!;
