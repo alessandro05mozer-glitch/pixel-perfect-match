@@ -28,7 +28,7 @@ const p = (
   id: string,
   name: string,
   category: string,
-  [tenda, max, assai, sk, taquaral]: number[],
+  [tenda, max, assai, sk, taquaral]: [number, number, number, number, number],
 ): Product => ({ id, name, category, prices: { tenda, max, assai, sk, taquaral } });
 
 export const PRODUCTS: Product[] = [

@@ -31,7 +31,7 @@ function Onboarding() {
     actions.finishOnboarding();
     navigate({ to: "/" });
   };
-  const S = STEPS[i];
+  const S = STEPS[i]!;
   return (
     <div className="flex min-h-screen flex-col bg-background px-6 py-6">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col">
