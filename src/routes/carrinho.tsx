@@ -125,7 +125,8 @@ function Cart() {
           ) : (
             <ul className="space-y-2">
               {cart.map((c) => {
-                const p = productById(c.productId)!;
+                const p = productById(c.productId);
+                if (!p) return null;
                 return (
                   <li key={c.productId} className="flex items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-card">
                     <div className="min-w-0 flex-1">

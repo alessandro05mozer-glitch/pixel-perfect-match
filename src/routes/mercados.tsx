@@ -32,9 +32,15 @@ function Limit() {
       title="Quantos mercados?"
       back
       footer={
-        <Button asChild size="lg" className="h-12 w-full rounded-full text-base" disabled={!cart.length}>
-          <Link to="/resultado">Ver recomendação</Link>
-        </Button>
+        cart.length ? (
+          <Button asChild size="lg" className="h-12 w-full rounded-full text-base">
+            <Link to="/resultado">Ver recomendação</Link>
+          </Button>
+        ) : (
+          <Button size="lg" className="h-12 w-full rounded-full text-base" disabled>
+            Ver recomendação
+          </Button>
+        )
       }
     >
       <div className="mx-auto max-w-xl">

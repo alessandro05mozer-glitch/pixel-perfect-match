@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import type { CartItem, MarketLimit } from "./recommend";
+import { initialState, parseStoredState } from "./store-state";
 
 export interface HistoryEntry {
   id: string;
@@ -21,14 +22,7 @@ export interface AppState {
 }
 
 const KEY = "compara-mercado:v1";
-const initial: AppState = {
-  onboarded: false,
-  cart: [],
-  limit: 2,
-  neighborhood: "Jardim Nova América",
-  defaultLimit: 2,
-  history: [],
-};
+const initial = initialState;
 
 let state: AppState = initial;
 let loaded = false;
@@ -38,8 +32,7 @@ function load() {
   if (loaded || typeof window === "undefined") return;
   loaded = true;
   try {
-    const raw = localStorage.getItem(KEY);
-    if (raw) state = { ...initial, ...JSON.parse(raw) };
+    state = parseStoredState(localStorage.getItem(KEY));
   } catch {
     /* ignore */
   }
@@ -48,7 +41,11 @@ function load() {
 export function setState(fn: (s: AppState) => AppState) {
   load();
   state = fn(state);
-  localStorage.setItem(KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(KEY, JSON.stringify(state));
+  } catch {
+    // Keep the current session usable when browser storage is unavailable.
+  }
   listeners.forEach((l) => l());
 }
 
