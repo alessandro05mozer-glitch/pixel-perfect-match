@@ -31,7 +31,7 @@ export function AppShell({
               variant="ghost"
               size="icon"
               onClick={() => {
-                if (router.history.canGoBack()) router.history.back();
+                if ((router.state.location.state.__TSR_index ?? 0) > 0) router.history.back();
                 else router.navigate({ to: "/" });
               }}
               aria-label="Voltar"
