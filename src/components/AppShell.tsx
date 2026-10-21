@@ -1,6 +1,7 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, History, Home, ShoppingBasket, User } from "lucide-react";
 import type { ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
 const NAV = [
   { to: "/", label: "Início", icon: Home },
@@ -26,13 +27,18 @@ export function AppShell({
       <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
           {back ? (
-            <button
-              onClick={() => router.history.back()}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                if (router.history.canGoBack()) router.history.back();
+                else router.navigate({ to: "/" });
+              }}
               aria-label="Voltar"
               className="-ml-2 flex h-11 w-11 items-center justify-center rounded-full hover:bg-muted"
             >
               <ArrowLeft className="h-5 w-5" />
-            </button>
+            </Button>
           ) : (
             <Link to="/" className="flex items-center gap-2 font-display text-lg font-extrabold">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">

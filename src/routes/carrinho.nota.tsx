@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Camera, CheckCircle2, Loader2, Upload } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { productById, RECEIPT_MOCK } from "@/lib/data";
@@ -23,10 +23,18 @@ export const Route = createFileRoute("/carrinho/nota")({
 function Receipt() {
   const [preview, setPreview] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "done">("idle");
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => { if (preview) URL.revokeObjectURL(preview); };
+  }, [preview]);
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
   const simulate = () => {
     setStatus("loading");
-    setTimeout(() => {
+    timer.current = setTimeout(() => {
       RECEIPT_MOCK.forEach((i) => actions.addItem(i.productId, i.qty));
       setStatus("done");
     }, 1400);
@@ -36,7 +44,7 @@ function Receipt() {
     <AppShell title="Nota fiscal" back>
       <div className="mx-auto max-w-lg">
         <p className="mb-4 rounded-xl bg-accent/40 px-4 py-2 text-center text-sm font-medium text-accent-foreground">
-          Em breve: leitura automática via OCR
+          Demonstração: adiciona itens de exemplo, não lê a imagem enviada.
         </p>
         {status !== "done" ? (
           <>
@@ -57,6 +65,7 @@ function Receipt() {
                 accept="image/*"
                 capture="environment"
                 className="sr-only"
+                disabled={status === "loading"}
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) setPreview(URL.createObjectURL(f));
@@ -66,7 +75,7 @@ function Receipt() {
             <Button size="lg" className="mt-4 h-12 w-full rounded-full text-base" onClick={simulate} disabled={status === "loading"}>
               {status === "loading" ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" /> Lendo a nota…
+                  <Loader2 className="h-4 w-4 animate-spin" /> Preparando exemplo…
                 </>
               ) : (
                 "Simular leitura"
@@ -77,7 +86,7 @@ function Receipt() {
           <div className="rounded-3xl border border-border bg-card p-6 shadow-card">
             <div className="flex items-center gap-2 text-primary">
               <CheckCircle2 className="h-5 w-5" />
-              <h2 className="font-bold">Itens identificados na nota — confira antes de continuar</h2>
+              <h2 className="font-bold">Itens de exemplo adicionados — confira antes de continuar</h2>
             </div>
             <ul className="mt-4 divide-y divide-border">
               {RECEIPT_MOCK.map((i) => (

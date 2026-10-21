@@ -51,7 +51,7 @@ function Profile() {
             onChange={(e) => setHood(e.target.value)}
             className="mt-2 h-12 w-full rounded-xl border border-input bg-background px-4 outline-none focus:ring-2 focus:ring-ring"
           />
-          <p className="mt-2 text-xs text-muted-foreground">Usado para estimar a distância até os mercados.</p>
+          <p className="mt-2 text-xs text-muted-foreground">Bairro salvo como preferência. As distâncias abaixo são ilustrativas e não mudam com o endereço.</p>
 
           <p className="mt-6 font-bold">Quantos mercados topa visitar (padrão)</p>
           <div className="mt-2 grid grid-cols-4 gap-2">
